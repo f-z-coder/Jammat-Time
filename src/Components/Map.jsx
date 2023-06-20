@@ -1,17 +1,10 @@
-import { useJsApiLoader, GoogleMap, MarkerF } from "@react-google-maps/api";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import Skeleton from "@mui/material/Skeleton";
 import Alert from "@mui/material/Alert";
 import { useState } from "react";
 
-const libraries = ["places"];
-
-function Map() {
+function Map({ isLoaded, errorToLoad }) {
   const [marker, setMarker] = useState({ lat: 18.407957, lng: 76.576767 });
-
-  const { isLoaded, errorToLoad } = useJsApiLoader({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-    libraries,
-  });
 
   if (errorToLoad) {
     return (
