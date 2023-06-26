@@ -1,4 +1,7 @@
-import usePlacesAutocomplete from "use-places-autocomplete";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -13,6 +16,7 @@ import {
   ListItemText,
   Divider,
 } from "@mui/material";
+
 function Search() {
   const {
     ready,
@@ -21,11 +25,15 @@ function Search() {
     setValue,
     clearSuggestions,
   } = usePlacesAutocomplete({
+    requestOptions: {
+      components: "country:in",
+    },
+
     debounce: 600,
   });
-  console.log("status", status);
-  console.log("data", data);
-  console.log("VALue", value);
+  // console.log("status", status);
+  // console.log("data", data);
+  // console.log("VALue", value);
 
   return (
     <>
@@ -62,6 +70,11 @@ function Search() {
                 <ListItemButton
                   onClick={() => {
                     setValue(suggestion.description, false);
+                    getGeocode({ address: suggestion.description }).then(
+                      (results) => {
+                        const { lat, lng } = getLatLng(results[0]);
+                      }
+                    );
                     clearSuggestions();
                   }}
                 >
