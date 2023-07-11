@@ -1,5 +1,6 @@
 import IconButton from "@mui/material/IconButton";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
+
 function NearbyPlace({ setCurrentPosition }) {
   const handleLocation = () => {
     // Check if geolocation is supported by the browser

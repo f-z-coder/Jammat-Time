@@ -1,0 +1,25 @@
+.gallery {
+  display: flex;
+  height: 15rem;
+  width: 100%;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+}
+.mosque_photos {
+  min-width: 60%;
+  height: 100%;
+  margin: 0.1rem;
+  scroll-snap-align: center;
+}
+.detail_section,
+.address_section {
+  padding: 1rem;
+}
+.detail_section h1 {
+  font-size: xx-large;
+  font-weight: 800;
+}
+.detail_section h2 {
+  font-size: medium;
+  font-weight: 400;
+}
