@@ -1,5 +1,6 @@
-import styles from "./Place.module.css";
-function Place({ placeDetails }) {
+import styles from "./PlaceDetails.module.css";
+
+function PlaceDetails({ placeDetails }) {
   const { name, formatted_address, types, url, photos } = placeDetails;
   console.log(name, formatted_address, types, url, photos);
   return (

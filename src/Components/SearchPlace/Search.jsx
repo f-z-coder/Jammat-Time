@@ -17,7 +17,7 @@ import {
   Divider,
 } from "@mui/material";
 
-function Search() {
+function SearchPlace() {
   const {
     ready,
     value,
@@ -91,4 +91,4 @@ function Search() {
     </>
   );
 }
-export default Search;
+export default SearchPlace;
