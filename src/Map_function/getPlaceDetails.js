@@ -5,13 +5,11 @@ async function getPlaceDetails(loader, map, place_id) {
   };
   let placeDetails;
   try {
-    const { PlacesService, PlacesServiceStatus } = await loader.importLibrary(
-      "places"
-    );
+    const { PlacesService } = await loader.importLibrary("places");
     const service = new PlacesService(map);
     placeDetails = new Promise((resolve, reject) => {
       service.getDetails(request, (placeResult, status) => {
-        if (status == PlacesServiceStatus.OK) {
+        if (status == "OK") {
           resolve(placeResult);
         } else {
           reject(status);

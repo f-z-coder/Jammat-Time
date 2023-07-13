@@ -1,4 +1,4 @@
-async function loadMap(loader, mapref) {
+async function loadMap(loader, mapContainerElement) {
   const mapOptions = {
     center: {
       lat: 18.408792,
@@ -11,7 +11,7 @@ async function loadMap(loader, mapref) {
   let map;
   try {
     const { Map } = await loader.importLibrary("maps");
-    map = new Map(mapref, mapOptions);
+    map = new Map(mapContainerElement, mapOptions);
   } catch (e) {
     console.error(e);
   }

@@ -1,4 +1,7 @@
 async function getNearByMosques(loader, map, currentlocation) {
+  if (loader == null || map == null || currentlocation == null) {
+    return null;
+  }
   const request = {
     location: currentlocation,
     radius: "10000", //10km
@@ -6,13 +9,11 @@ async function getNearByMosques(loader, map, currentlocation) {
   };
   let mosques;
   try {
-    const { PlacesService, PlacesServiceStatus } = await loader.importLibrary(
-      "places"
-    );
+    const { PlacesService } = await loader.importLibrary("places");
     const service = new PlacesService(map);
     mosques = new Promise((resolve, reject) => {
       service.nearbySearch(request, (placeResult, status) => {
-        if (status == PlacesServiceStatus.Ok) {
+        if (status == "OK") {
           resolve(placeResult);
         } else {
           reject(status);
