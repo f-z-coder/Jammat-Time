@@ -1,17 +1,8 @@
-import { useRef, useEffect, useContext } from "react";
+import { useRef } from "react";
 import useLoadMap from "../../custom_hooks/useLoadMap";
-import currentLocationContext from "../../contexts/currentLocation";
 function GoogleMap() {
   const mapContainerELementRef = useRef(null);
-  const map = useLoadMap(mapContainerELementRef);
-  const [currentLocation] = useContext(currentLocationContext);
-  useEffect(() => {
-    if (map != null && currentLocation !== null) {
-      map.panTo(currentLocation);
-      map.setZoom(10);
-    }
-  }, [currentLocation, map]);
-
+  useLoadMap(mapContainerELementRef);
   return (
     <div
       ref={mapContainerELementRef}

@@ -21,10 +21,10 @@ async function addMultipleMarkers(loader, map, places, eventListener) {
         position: position,
         label: i + "",
       });
+      markers.push(marker);
       marker.addListener("click", () => {
         eventListener(place);
       });
-      markers.push(marker);
     });
   } catch (e) {
     console.log(e);

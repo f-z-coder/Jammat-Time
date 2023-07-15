@@ -12,6 +12,7 @@ function NearByMosques() {
   const [currentLocation] = useContext(currentLocationContext);
   const navigate = useNavigate();
   const [, setMarkers] = useContext(markersContext);
+
   const showDetails = useCallback(
     (mosque) => {
       const url = `/placesdetails/${mosque.place_id}`;
@@ -19,6 +20,7 @@ function NearByMosques() {
     },
     [navigate]
   );
+
   useEffect(() => {
     async function getAndMarkMosques() {
       try {
@@ -30,9 +32,9 @@ function NearByMosques() {
             mosques,
             showDetails
           );
-          setMarkers(markers);
+          map.panTo(currentLocation);
           map.setZoom(15);
-          console.log("loadead markers");
+          setMarkers(markers);
         }
       } catch (e) {
         console.error(e);

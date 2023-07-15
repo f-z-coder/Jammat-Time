@@ -17,7 +17,8 @@ async function getCurrentLocation() {
           // Handle errors, e.g. user denied location sharing permissions
           console.error("Error getting user location:", error);
           reject(error);
-        }
+        },
+        { enableHighAccuracy: true }
       );
     } else {
       // Geolocation is not supported by the browser

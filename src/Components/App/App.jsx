@@ -12,7 +12,7 @@ const router = createBrowserRouter([
     element: <Home />,
     children: [
       {
-        path: "nearbymosques",
+        path: "/nearbymosques",
         element: <NearByMosques />,
       },
     ],
@@ -27,6 +27,7 @@ function App() {
   const [map, setMap] = useState(null);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [markers, setMarkers] = useState(null);
+  console.log("App render", map, currentLocation, markers);
   return (
     <MapContext.Provider value={[map, setMap]}>
       <CurrentLocationContext.Provider

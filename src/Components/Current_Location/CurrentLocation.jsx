@@ -1,20 +1,26 @@
 import IconButton from "@mui/material/IconButton";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
-import getCurrentLocation from "../../utils_function/getCurrentLocation.js";
 import { useNavigate, useLocation } from "react-router-dom";
-import currentLocationContext from "../../contexts/currentLocation.js";
+import getCurrentLocation from "../../utils_function/getCurrentLocation.js";
 import { useContext } from "react";
+import currentLocationContext from "../../contexts/currentLocation.js";
 function CurrentLocation() {
-  const navigate = useNavigate();
+  const [currentLocationState, setCurrentLocationState] = useContext(
+    currentLocationContext
+  );
   const url = useLocation();
-  const [, setCurrentLocation] = useContext(currentLocationContext);
+  const navigate = useNavigate();
   const handleClick = async () => {
     try {
-      const currentLocation = await getCurrentLocation();
-      setCurrentLocation(currentLocation);
-      if (url.pathname === "/nearbymosques") {
-        navigate("/nearbymosques", { replace: true });
-      } else {
+      const currentLocationOfUser = await getCurrentLocation();
+      if (
+        currentLocationState === null ||
+        currentLocationOfUser.lat !== currentLocationState.lat ||
+        currentLocationOfUser.lng !== currentLocationState.lng
+      ) {
+        setCurrentLocationState(currentLocationOfUser);
+      }
+      if (url.pathname === "/") {
         navigate("/nearbymosques");
       }
     } catch (e) {

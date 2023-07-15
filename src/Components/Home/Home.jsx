@@ -1,31 +1,37 @@
-import { useContext, useEffect } from "react";
+import styles from "./Home.module.css";
 import GoogleMap from "../GoogleMap/GoogleMap";
 import CurrentLocation from "../Current_Location/CurrentLocation";
-import styles from "./Home.module.css";
-import { Outlet, useLocation } from "react-router-dom";
-import currentLocationContext from "../../contexts/currentLocation";
+import { Outlet, useOutlet } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import loaderContext from "../../contexts/loaderContext";
+import MapContext from "../../contexts/mapContext";
 import markersContext from "../../contexts/markersContext";
 import removeMultipleMarkers from "../../Map_function/removeMultipleMarkers";
 function Home() {
-  const { pathname } = useLocation();
-  const [, setCurrentLocation] = useContext(currentLocationContext);
+  const [map] = useContext(MapContext);
   const [markers, setMarkers] = useContext(markersContext);
+  const loader = useContext(loaderContext);
+  const isNotnull = useOutlet(); //is null when child path not match any url(when path=/)
+  let isNearByMosquesVisble = false;
+  if (isNotnull) {
+    /*show mosque location only when location is /nearbymosques means useContext is not null */
+    isNearByMosquesVisble = true;
+  }
+  console.log(isNotnull, markers);
   useEffect(() => {
-    if (pathname === "/" && markers !== null) {
-      removeMultipleMarkers(markers);
+    if (isNotnull === null && markers !== null) {
+      removeMultipleMarkers(loader, map, markers);
       setMarkers(null);
-      setCurrentLocation(null);
     }
-  }, [pathname, setCurrentLocation, markers, setMarkers]);
+  }, [isNotnull, markers, setMarkers, map, loader]);
 
   return (
     <div className={styles.app}>
       <GoogleMap />
-      <Outlet />
-
       <div className={styles.currentlocation}>
         <CurrentLocation />
       </div>
+      {isNearByMosquesVisble && <Outlet />}
     </div>
   );
 }
