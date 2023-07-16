@@ -9,8 +9,8 @@ function useLoadMap(mapContainerElementRef) {
     async function load() {
       if (mapContainerElementRef) {
         const mapobj = await loadMap(loader, mapContainerElementRef.current);
-        console.log("Load map");
         setMap(mapobj);
+        console.log("map loaded");
       }
     }
     load();

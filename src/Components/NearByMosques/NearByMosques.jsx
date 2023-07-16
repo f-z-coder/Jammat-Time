@@ -6,13 +6,13 @@ import MapContext from "../../contexts/mapContext";
 import { useNavigate } from "react-router-dom";
 import currentLocationContext from "../../contexts/currentLocation";
 import markersContext from "../../contexts/markersContext";
+import removeMultipleMarkers from "../../Map_function/removeMultipleMarkers";
 function NearByMosques() {
   const loader = useContext(loaderContext);
   const [map] = useContext(MapContext);
   const [currentLocation] = useContext(currentLocationContext);
   const navigate = useNavigate();
-  const [, setMarkers] = useContext(markersContext);
-
+  const [markersState, setMarkersState] = useContext(markersContext);
   const showDetails = useCallback(
     (mosque) => {
       const url = `/placesdetails/${mosque.place_id}`;
@@ -25,6 +25,12 @@ function NearByMosques() {
     async function getAndMarkMosques() {
       try {
         if (map && loader && currentLocation) {
+          if (markersState !== null) {
+            //this is cleanup  to remove markers before adding new markers
+            await removeMultipleMarkers(markersState);
+            setMarkersState(null);
+            console.log("removePreviousMarker");
+          }
           const mosques = await getNearByMosques(loader, map, currentLocation);
           const markers = await addMultipleMarkers(
             loader,
@@ -34,14 +40,23 @@ function NearByMosques() {
           );
           map.panTo(currentLocation);
           map.setZoom(15);
-          setMarkers(markers);
+          setMarkersState(markers);
+          console.log("Markers added");
         }
       } catch (e) {
         console.error(e);
       }
     }
     getAndMarkMosques();
-  }, [currentLocation, loader, map, showDetails, setMarkers]);
+  }, [
+    loader,
+    map,
+    currentLocation,
+    showDetails,
+    markersState,
+    setMarkersState,
+  ]);
+
   return <></>;
 }
 

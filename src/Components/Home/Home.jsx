@@ -3,14 +3,10 @@ import GoogleMap from "../GoogleMap/GoogleMap";
 import CurrentLocation from "../Current_Location/CurrentLocation";
 import { Outlet, useOutlet } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import loaderContext from "../../contexts/loaderContext";
-import MapContext from "../../contexts/mapContext";
 import markersContext from "../../contexts/markersContext";
 import removeMultipleMarkers from "../../Map_function/removeMultipleMarkers";
 function Home() {
-  const [map] = useContext(MapContext);
   const [markers, setMarkers] = useContext(markersContext);
-  const loader = useContext(loaderContext);
   const isNotnull = useOutlet(); //is null when child path not match any url(when path=/)
   let isNearByMosquesVisble = false;
   if (isNotnull) {
@@ -20,10 +16,10 @@ function Home() {
   console.log(isNotnull, markers);
   useEffect(() => {
     if (isNotnull === null && markers !== null) {
-      removeMultipleMarkers(loader, map, markers);
-      setMarkers(null);
+      removeMultipleMarkers(markers);
+      setMarkers(markers);
     }
-  }, [isNotnull, markers, setMarkers, map, loader]);
+  }, [isNotnull, markers, setMarkers]);
 
   return (
     <div className={styles.app}>
