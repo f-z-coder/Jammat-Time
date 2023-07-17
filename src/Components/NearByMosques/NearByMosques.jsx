@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect, useRef } from "react";
 import getNearByMosques from "../../Map_function/getNearByMosques";
 import addMultipleMarkers from "../../Map_function/addMultipleMarkers";
 import loaderContext from "../../contexts/loaderContext";
@@ -12,7 +12,8 @@ function NearByMosques() {
   const [map] = useContext(MapContext);
   const [currentLocation] = useContext(currentLocationContext);
   const navigate = useNavigate();
-  const [markersState, setMarkersState] = useContext(markersContext);
+  const markersDataRef = useContext(markersContext);
+  const isEffectRunning = useRef(false);
   const showDetails = useCallback(
     (mosque) => {
       const url = `/placesdetails/${mosque.place_id}`;
@@ -24,13 +25,17 @@ function NearByMosques() {
   useEffect(() => {
     async function getAndMarkMosques() {
       try {
-        if (map && loader && currentLocation) {
-          if (markersState !== null) {
-            //this is cleanup  to remove markers before adding new markers
-            await removeMultipleMarkers(markersState);
-            setMarkersState(null);
+        if (map && loader && currentLocation && !isEffectRunning.current) {
+          isEffectRunning.current = true;
+
+          console.log("Removing marker", markersDataRef.current);
+          if (markersDataRef.current !== null) {
+            // This is cleanup to remove markers before adding new markers
+            await removeMultipleMarkers(markersDataRef.current);
+            markersDataRef.current = null;
             console.log("removePreviousMarker");
           }
+
           const mosques = await getNearByMosques(loader, map, currentLocation);
           const markers = await addMultipleMarkers(
             loader,
@@ -38,24 +43,55 @@ function NearByMosques() {
             mosques,
             showDetails
           );
+
           map.panTo(currentLocation);
           map.setZoom(15);
-          setMarkersState(markers);
+          markersDataRef.current = markers;
           console.log("Markers added");
+
+          isEffectRunning.current = false;
+        } else {
+          console.log("curent isEffectRunning");
+          setTimeout(getAndMarkMosques, 200);
         }
       } catch (e) {
+        isEffectRunning.current = false;
         console.error(e);
       }
     }
+
     getAndMarkMosques();
-  }, [
-    loader,
-    map,
-    currentLocation,
-    showDetails,
-    markersState,
-    setMarkersState,
-  ]);
+  }, [loader, map, currentLocation, showDetails, markersDataRef]);
+
+  // useEffect(() => {
+  //   async function getAndMarkMosques() {
+  //     try {
+  //       if (map && loader && currentLocation) {
+  //         console.log("Removing marker", markersDataRef.current);
+  //         if (markersDataRef.current !== null) {
+  //           //this is cleanup  to remove markers before adding new markers
+  //           await removeMultipleMarkers(markersDataRef.current);
+  //           markersDataRef.current = null;
+  //           console.log("removePreviousMarker");
+  //         }
+  //         const mosques = await getNearByMosques(loader, map, currentLocation);
+  //         const markers = await addMultipleMarkers(
+  //           loader,
+  //           map,
+  //           mosques,
+  //           showDetails
+  //         );
+  //         map.panTo(currentLocation);
+  //         map.setZoom(15);
+  //         markersDataRef.current = markers;
+  //         console.log("Markers added");
+  //       }
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   }
+  //   getAndMarkMosques();
+  // }, [loader, map, currentLocation, showDetails, markersDataRef]);
 
   return <></>;
 }

@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "../Home/Home.jsx";
 import NearByMosques from "../NearByMosques/NearByMosques.jsx";
 import PlaceDetails from "../PlaceDetails/PlaceDetails.jsx";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import MapContext from "../../contexts/mapContext.js";
 import CurrentLocationContext from "../../contexts/currentLocation.js";
 import MarkersContext from "../../contexts/markersContext.js";
@@ -26,14 +26,14 @@ const router = createBrowserRouter([
 function App() {
   const [map, setMap] = useState(null);
   const [currentLocation, setCurrentLocation] = useState(null);
-  const [markers, setMarkers] = useState(null);
-  console.log("App render", map, currentLocation, markers);
+  const markersDataRef = useRef(null);
+  console.log("App render", map, currentLocation, markersDataRef);
   return (
     <MapContext.Provider value={[map, setMap]}>
       <CurrentLocationContext.Provider
         value={[currentLocation, setCurrentLocation]}
       >
-        <MarkersContext.Provider value={[markers, setMarkers]}>
+        <MarkersContext.Provider value={markersDataRef}>
           <RouterProvider router={router} />
         </MarkersContext.Provider>
       </CurrentLocationContext.Provider>
