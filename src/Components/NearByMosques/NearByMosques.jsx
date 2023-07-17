@@ -63,36 +63,6 @@ function NearByMosques() {
     getAndMarkMosques();
   }, [loader, map, currentLocation, showDetails, markersDataRef]);
 
-  // useEffect(() => {
-  //   async function getAndMarkMosques() {
-  //     try {
-  //       if (map && loader && currentLocation) {
-  //         console.log("Removing marker", markersDataRef.current);
-  //         if (markersDataRef.current !== null) {
-  //           //this is cleanup  to remove markers before adding new markers
-  //           await removeMultipleMarkers(markersDataRef.current);
-  //           markersDataRef.current = null;
-  //           console.log("removePreviousMarker");
-  //         }
-  //         const mosques = await getNearByMosques(loader, map, currentLocation);
-  //         const markers = await addMultipleMarkers(
-  //           loader,
-  //           map,
-  //           mosques,
-  //           showDetails
-  //         );
-  //         map.panTo(currentLocation);
-  //         map.setZoom(15);
-  //         markersDataRef.current = markers;
-  //         console.log("Markers added");
-  //       }
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-  //   }
-  //   getAndMarkMosques();
-  // }, [loader, map, currentLocation, showDetails, markersDataRef]);
-
   return <></>;
 }
 
