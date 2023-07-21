@@ -57,3 +57,30 @@ svg {
     scroll-behavior: auto !important;
   }
 }
+
+:root {
+  --clr-primary: rgb(35, 39, 42);
+  --clr-neutral-100: rgb(255, 255, 255);
+  --clr-neutral-200: rgb(246, 246, 246);
+  --clr-accent-100: rgb(121 131 245);
+  --clr-accent-200: rgb(87, 101, 242);
+  --clr-accent-500: rgb(64, 78, 237);
+
+  --ff-primary: "Open Sans", "Noto Sans", sans-serif;
+  --ff-heading: "Rowdies", "Noto Sans", sans-serif;
+
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  --fs-100: 0.875rem; /* 14px */
+  --fs-200: 1rem; /* 16px */
+  --fs-300: 1.25rem; /* 20px */
+  --fs-350: 1.5rem; /* 24px */
+  --fs-400: 2rem; /* 32px */
+  --fs-500: 2.5rem; /* 40px */
+  --fs-600: 3rem; /* 48px */
+  --fs-700: 3.5rem; /* 56px */
+}

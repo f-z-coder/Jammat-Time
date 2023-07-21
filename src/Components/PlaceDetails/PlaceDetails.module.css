@@ -16,10 +16,6 @@
   padding: 1rem;
 }
 .detail_section h1 {
-  font-size: xx-large;
-  font-weight: 800;
-}
-.detail_section h2 {
-  font-size: medium;
-  font-weight: 400;
+  font-size: var(--fs-300);
+  font-weight: var(--fw-bold);
 }

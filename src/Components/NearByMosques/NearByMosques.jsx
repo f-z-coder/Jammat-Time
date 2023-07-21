@@ -25,30 +25,34 @@ function NearByMosques() {
   useEffect(() => {
     async function getAndMarkMosques() {
       try {
-        if (map && loader && currentLocation && !isEffectRunning.current) {
+        if (!isEffectRunning.current) {
           isEffectRunning.current = true;
+          if (map && loader && currentLocation) {
+            console.log("Removing marker", markersDataRef.current);
+            if (markersDataRef.current !== null) {
+              // This is cleanup to remove markers before adding new markers
+              await removeMultipleMarkers(markersDataRef.current);
+              markersDataRef.current = null;
+              console.log("removePreviousMarker");
+            }
 
-          console.log("Removing marker", markersDataRef.current);
-          if (markersDataRef.current !== null) {
-            // This is cleanup to remove markers before adding new markers
-            await removeMultipleMarkers(markersDataRef.current);
-            markersDataRef.current = null;
-            console.log("removePreviousMarker");
+            const mosques = await getNearByMosques(
+              loader,
+              map,
+              currentLocation
+            );
+            const markers = await addMultipleMarkers(
+              loader,
+              map,
+              mosques,
+              showDetails
+            );
+
+            map.panTo(currentLocation);
+            map.setZoom(15);
+            markersDataRef.current = markers;
+            console.log("Markers added");
           }
-
-          const mosques = await getNearByMosques(loader, map, currentLocation);
-          const markers = await addMultipleMarkers(
-            loader,
-            map,
-            mosques,
-            showDetails
-          );
-
-          map.panTo(currentLocation);
-          map.setZoom(15);
-          markersDataRef.current = markers;
-          console.log("Markers added");
-
           isEffectRunning.current = false;
         } else {
           console.log("curent isEffectRunning");

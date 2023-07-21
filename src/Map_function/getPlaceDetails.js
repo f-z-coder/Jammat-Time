@@ -1,7 +1,7 @@
 async function getPlaceDetails(loader, map, place_id) {
   let request = {
     placeId: place_id,
-    fields: ["name", "formatted_address", "photos", "type", "url"],
+    fields: ["name", "formatted_address", "photos", "url"],
   };
   let placeDetails;
   try {

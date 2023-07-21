@@ -1,0 +1,16 @@
+.time_grid {
+  display: grid;
+  row-gap: 0.5rem;
+  text-align: center;
+  grid-template-columns: repeat(3, auto);
+}
+/* .time_grid div {
+  text-align: center;
+} */
+/* input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+} */
+input[type="time"] {
+  outline: none;
+  border: none;
+}
