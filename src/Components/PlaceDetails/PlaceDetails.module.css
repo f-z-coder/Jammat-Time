@@ -11,11 +11,21 @@
   margin: 0.1rem;
   scroll-snap-align: center;
 }
-.detail_section,
-.address_section {
+.details_section {
   padding: 1rem;
 }
-.detail_section h1 {
+.name_section h1 {
   font-size: var(--fs-300);
   font-weight: var(--fw-bold);
+}
+
+.address_section {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 0.2rem;
+}
+.address_section h2 {
+  font-size: var(--fs-100);
+  font-weight: var(--fw-semibold);
 }

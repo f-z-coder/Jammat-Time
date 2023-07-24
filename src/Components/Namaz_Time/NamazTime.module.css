@@ -1,16 +1,31 @@
 .time_grid {
   display: grid;
   row-gap: 0.5rem;
+  margin: 1rem;
+  padding-block: 1rem;
   text-align: center;
   grid-template-columns: repeat(3, auto);
+  box-shadow: 0.2rem 0.2rem 0.5rem;
 }
-/* .time_grid div {
-  text-align: center;
-} */
-/* input[type="time"]::-webkit-calendar-picker-indicator {
+.disable > input[type="time"]::-webkit-calendar-picker-indicator {
   display: none;
-} */
+}
 input[type="time"] {
   outline: none;
   border: none;
+}
+
+.editable_control_section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  row-gap: 0.5rem;
+}
+.editable_control_section button {
+  padding: 0.2rem;
+}
+.editable_control_section div {
+  text-transform: capitalize;
 }

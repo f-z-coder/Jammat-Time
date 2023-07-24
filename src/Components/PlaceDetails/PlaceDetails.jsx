@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./PlaceDetails.module.css";
+import { IconButton } from "@mui/material";
+import DirectionsIcon from "@mui/icons-material/Directions";
 import { useLocation } from "react-router-dom";
 import getPlaceDetails from "../../Map_function/getPlaceDetails";
 import loaderContext from "../../contexts/loaderContext";
@@ -40,16 +42,25 @@ function PlaceDetails() {
           );
         })}
       </div>
-      <div className={styles.detail_section}>
-        <h1>{name}</h1>
+      <div className={styles.details_section}>
+        <div className={styles.name_section}>
+          <h1>{name}</h1>
+        </div>
+        <div className={styles.address_section}>
+          <h2>Address :{formatted_address}</h2>
+          <IconButton
+            fontSize="60"
+            sx={{ color: "var(--clr-accent-500)" }}
+            onClick={() => {
+              window.open(url);
+            }}
+          >
+            <DirectionsIcon />
+          </IconButton>
+        </div>
       </div>
-      <div className="Time">
-        <button> View Time</button>
-      </div>
-      <div className={styles.address_section}>
-        <a href={url}>{formatted_address}</a>
-      </div>
-      <NamazTime />
+
+      <NamazTime place_id={place_id} />
     </div>
   );
 }
