@@ -1,7 +1,4 @@
 async function getNearByMosques(loader, map, currentlocation) {
-  if (loader == null || map == null || currentlocation == null) {
-    return null;
-  }
   const request = {
     location: currentlocation,
     radius: "10000", //10km

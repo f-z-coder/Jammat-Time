@@ -1,13 +1,5 @@
-async function addMultipleMarkers(loader, map, places, eventListener) {
+async function addMultipleMarkers(loader, map, places, markerClickHandler) {
   const markers = [];
-  if (
-    loader === null ||
-    map === null ||
-    places === null ||
-    eventListener === null
-  ) {
-    return;
-  }
   try {
     const { Marker } = await loader.importLibrary("marker");
     places?.forEach((place, i) => {
@@ -22,7 +14,7 @@ async function addMultipleMarkers(loader, map, places, eventListener) {
         label: i + "",
       });
       marker.addListener("click", () => {
-        eventListener(place);
+        markerClickHandler(place);
       });
       markers.push(marker);
     });

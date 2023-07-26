@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import useLoadMap from "../../custom_hooks/useLoadMap";
+import useLoadMap from "../../customHooks/useLoadMap";
 function GoogleMap() {
   const mapContainerELementRef = useRef(null);
   useLoadMap(mapContainerELementRef);

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import styles from "./PlaceDetails.module.css";
+import styles from "./placeDetails.module.css";
 import { IconButton } from "@mui/material";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import { useLocation } from "react-router-dom";
-import getPlaceDetails from "../../Map_function/getPlaceDetails";
+import getPlaceDetails from "../../mapfunction/getPlaceDetails";
 import loaderContext from "../../contexts/loaderContext";
 import MapContext from "../../contexts/mapContext";
 import { useContext } from "react";
-import NamazTime from "../Namaz_Time/NamazTIme";
+import NamazTime from "../namazTime/NamazTime";
 function PlaceDetails() {
   const [placeDetails, setPlaceDetails] = useState({
     photos: null,
