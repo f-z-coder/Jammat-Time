@@ -1,6 +1,6 @@
-.hideMapLayOut {
+.hideMap {
   display: none;
 }
-.showMapLayOut {
+.showMap {
   display: block;
 }

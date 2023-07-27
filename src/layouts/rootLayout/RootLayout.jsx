@@ -1,38 +1,31 @@
 import { useEffect, useState } from "react";
-import {
-  Outlet,
-  useLocation,
-  useParams,
-  useNavigate,
-  useOutlet,
-} from "react-router-dom";
-import MapLayout from "../mapLayout/MapLayout";
+import { Outlet, useLocation, useParams, useNavigate } from "react-router-dom";
+import Map from "../../components/map/Map";
 import styles from "./rootLayout.module.css";
 
 function RootLayout() {
-  const [showMapLayOut, setShowMapLayOut] = useState(true);
+  const [showMap, setShowMap] = useState(true);
   const { pathname } = useLocation();
   const { place_id } = useParams();
   const navigate = useNavigate();
 
-  const className = showMapLayOut ? styles.showMapLayOut : styles.hideMapLayOut;
-  const oulet = useOutlet();
-  console.log("RootLayout render", oulet);
+  const className = showMap ? styles.showMap : styles.hideMap;
+  console.log("RootLayout render", pathname);
 
   useEffect(() => {
     if (pathname === "/") {
       //just changing url nothing else
       navigate("/map");
     } else if (pathname === `/placesdetails/${place_id}`) {
-      setShowMapLayOut(false);
+      setShowMap(false);
     } else {
-      setShowMapLayOut(true);
+      setShowMap(true);
     }
-  }, [navigate, setShowMapLayOut, pathname, place_id]);
+  }, [navigate, setShowMap, pathname, place_id]);
   return (
     <div>
       <div className={className}>
-        <MapLayout />
+        <Map />
       </div>
       {/* this outlet only usefull for to display placedetails layout  */}
       <Outlet />

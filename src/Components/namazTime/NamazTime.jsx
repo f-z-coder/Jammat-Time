@@ -54,6 +54,7 @@ function NamazTime({ place_id }) {
     }
     getNamazTimeData();
   }, [place_id, setNamazTime]);
+
   return (
     <div>
       <div className={Style.time_grid}>

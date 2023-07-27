@@ -3,10 +3,11 @@ import { useState, useRef } from "react";
 
 import MapContext from "../contexts/mapContext.js";
 import CurrentLocationContext from "../contexts/currentLocation.js";
+import AddingMarkersContext from "../contexts/addingMarkers.js";
 import MarkersContext from "../contexts/markersContext.js";
 
 import RootLayout from "../layouts/rootLayout/RootLayout.jsx";
-import Map from "../layouts/map/Map.jsx";
+import MapLayout from "../layouts/mapLayout/MapLayout.jsx";
 import NearByPlacesLayout from "../layouts/nearByPlacesLayout/NearByPlacesLayout.jsx";
 import PlaceDetailsLayout from "../layouts/placeDetailsLayout/PlaceDetailsLayout.jsx";
 
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/map",
-        element: <Map />,
+        element: <MapLayout />,
         children: [
           {
             path: "/map/nearbyplaces",
@@ -37,6 +38,7 @@ function App() {
   const [map, setMap] = useState(null);
   const [currentLocation, setCurrentLocation] = useState(null);
   const markersDataRef = useRef(null);
+  const addingMarkers = useRef(false);
 
   console.log("App render", map, currentLocation, markersDataRef);
 
@@ -45,9 +47,11 @@ function App() {
       <CurrentLocationContext.Provider
         value={[currentLocation, setCurrentLocation]}
       >
-        <MarkersContext.Provider value={markersDataRef}>
-          <RouterProvider router={router} />
-        </MarkersContext.Provider>
+        <AddingMarkersContext.Provider value={addingMarkers}>
+          <MarkersContext.Provider value={markersDataRef}>
+            <RouterProvider router={router} />
+          </MarkersContext.Provider>
+        </AddingMarkersContext.Provider>
       </CurrentLocationContext.Provider>
     </MapContext.Provider>
   );

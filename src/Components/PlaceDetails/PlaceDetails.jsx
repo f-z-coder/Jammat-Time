@@ -1,33 +1,15 @@
-import { useEffect, useState } from "react";
 import styles from "./placeDetails.module.css";
 import { IconButton } from "@mui/material";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import { useLocation } from "react-router-dom";
-import getPlaceDetails from "../../mapfunction/getPlaceDetails";
-import loaderContext from "../../contexts/loaderContext";
-import MapContext from "../../contexts/mapContext";
-import { useContext } from "react";
+
 import NamazTime from "../namazTime/NamazTime";
+import useGetPlaceDetails from "../../customHooks/useGetPlaceDetails";
 function PlaceDetails() {
-  const [placeDetails, setPlaceDetails] = useState({
-    photos: null,
-    name: "faiz",
-    formatted_address: "Latur",
-    url: "",
-  });
   const { pathname } = useLocation();
-  const loader = useContext(loaderContext);
-  const [map] = useContext(MapContext);
   const place_id = pathname.split("/").pop();
 
-  useEffect(() => {
-    async function getDetails() {
-      const details = await getPlaceDetails(loader, map, place_id);
-      setPlaceDetails(details);
-    }
-    getDetails();
-  }, [loader, map, place_id]);
-  const { photos, name, formatted_address, url } = placeDetails;
+  const { photos, name, formatted_address, url } = useGetPlaceDetails(place_id);
   return (
     <div>
       <div className={styles.gallery}>

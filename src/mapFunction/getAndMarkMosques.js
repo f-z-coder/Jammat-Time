@@ -27,7 +27,7 @@ async function getAndMarkMosques(
     );
 
     map.panTo(currentLocation);
-    map.setZoom(13);
+    map.setZoom(15);
     markersDataRef.current = markers;
     console.log("Markers added");
   }
