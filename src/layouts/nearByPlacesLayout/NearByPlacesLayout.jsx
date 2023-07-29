@@ -1,8 +1,12 @@
 import useAddMarkers from "../../customHooks/useAddMarkers";
+import BackButton from "../../components/backButton/BackButton";
 function NearByPlacesLayout() {
   useAddMarkers();
-  console.log("NearByPlacesLayout render");
-  return <></>;
+  return (
+    <div>
+      <BackButton />
+    </div>
+  );
 }
 
 export default NearByPlacesLayout;

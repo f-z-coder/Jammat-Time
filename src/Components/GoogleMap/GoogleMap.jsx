@@ -1,14 +1,10 @@
 import { useRef } from "react";
+import styles from "./googleMap.module.css";
 import useLoadMap from "../../customHooks/useLoadMap";
 function GoogleMap() {
   const mapContainerELementRef = useRef(null);
   useLoadMap(mapContainerELementRef);
-  return (
-    <div
-      ref={mapContainerELementRef}
-      style={{ width: "100%", height: "100%" }}
-    ></div>
-  );
+  return <div className={styles.googleMap} ref={mapContainerELementRef}></div>;
 }
 
 export default GoogleMap;

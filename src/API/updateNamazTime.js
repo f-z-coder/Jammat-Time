@@ -1,6 +1,7 @@
 import axios from "axios";
 async function updateNamazTime(place_id, namazTimeDetails) {
-  const url = `http://localhost:80/api/v1/namazTime/${place_id}`;
+  const base_url = import.meta.env.VITE_SERVER_BASE_URL;
+  const url = `${base_url}/api/v1/namazTime/${place_id}`;
   const dataToUpdate = { NamazTimeDetails: namazTimeDetails };
   let updatedNamazTimeData = null;
   let statusCode = null;
@@ -11,19 +12,21 @@ async function updateNamazTime(place_id, namazTimeDetails) {
       status: statusCode,
       statusText: statusMessage,
     } = await axios.patch(url, dataToUpdate));
-    console.log(updatedNamazTimeData, statusCode, statusMessage);
   } catch (err) {
-    console.log(err);
+    return { error: err.message };
   }
   // if document found  updated successfully
   if (statusCode === 202) {
-    return statusMessage;
+    return {
+      updateNamazTime: updatedNamazTimeData,
+      statusCode: statusCode,
+      statusMessage: statusMessage,
+    };
   }
   //if  server error
   if (statusCode === 500) {
     //here we throw an error later and handle with error element of router
-    console.error(updatedNamazTimeData.Error);
-    return null;
+    return { error: "server error" };
   }
 }
 export default updateNamazTime;

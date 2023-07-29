@@ -10,7 +10,6 @@ function useLoadMap(mapContainerElementRef) {
       if (mapContainerElementRef !== null) {
         const mapobj = await loadMap(loader, mapContainerElementRef.current);
         setMap(mapobj);
-        console.log("map loaded");
       }
     }
     load();

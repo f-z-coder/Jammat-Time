@@ -15,14 +15,12 @@ async function getCurrentLocation() {
         // Error callback function
         (error) => {
           // Handle errors, e.g. user denied location sharing permissions
-          console.error("Error getting user location:", error);
           reject(error);
         },
         { enableHighAccuracy: true }
       );
     } else {
       // Geolocation is not supported by the browser
-      console.error("Geolocation is not supported by this browser.");
       reject("Geolocation is not supported by this browser.");
     }
   });

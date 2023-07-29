@@ -1,8 +1,8 @@
-import IconButton from "@mui/material/IconButton";
+import styles from "./currentLocation.module.css";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import { useNavigate, useLocation } from "react-router-dom";
-import getCurrentLocation from "../../utilsFunction/getCurrentLocation.js";
 import { useContext } from "react";
+import getCurrentLocation from "../../utilsFunction/getCurrentLocation.js";
 import currentLocationContext from "../../contexts/currentLocation.js";
 function CurrentLocation() {
   const [currentLocationState, setCurrentLocationState] = useContext(
@@ -26,13 +26,13 @@ function CurrentLocation() {
         navigate("/map/nearbyplaces");
       }
     } catch (e) {
-      console.log(e);
+      throw Error(e.message);
     }
   };
   return (
-    <IconButton onClick={handleClick}>
+    <button className={styles.locationButton} onClick={handleClick}>
       <MyLocationIcon />
-    </IconButton>
+    </button>
   );
 }
 export default CurrentLocation;

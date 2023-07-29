@@ -1,14 +1,7 @@
 import styles from "./placeDetails.module.css";
-import { IconButton } from "@mui/material";
 import DirectionsIcon from "@mui/icons-material/Directions";
-import { useLocation } from "react-router-dom";
-
-import NamazTime from "../namazTime/NamazTime";
 import useGetPlaceDetails from "../../customHooks/useGetPlaceDetails";
-function PlaceDetails() {
-  const { pathname } = useLocation();
-  const place_id = pathname.split("/").pop();
-
+function PlaceDetails({ place_id }) {
   const { photos, name, formatted_address, url } = useGetPlaceDetails(place_id);
   return (
     <div>
@@ -30,19 +23,17 @@ function PlaceDetails() {
         </div>
         <div className={styles.address_section}>
           <h2>Address :{formatted_address}</h2>
-          <IconButton
-            fontSize="60"
-            sx={{ color: "var(--clr-accent-500)" }}
+
+          <button
+            className={styles.directionButton}
             onClick={() => {
               window.open(url);
             }}
           >
             <DirectionsIcon />
-          </IconButton>
+          </button>
         </div>
       </div>
-
-      <NamazTime place_id={place_id} />
     </div>
   );
 }

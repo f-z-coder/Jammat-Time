@@ -59,12 +59,17 @@ svg {
 }
 
 :root {
-  --clr-primary: rgb(35, 39, 42);
+  --clr-primary-100: rgb(35, 39, 42);
+
   --clr-neutral-100: rgb(255, 255, 255);
   --clr-neutral-200: rgb(246, 246, 246);
-  --clr-accent-100: rgb(121 131 245);
-  --clr-accent-200: rgb(87, 101, 242);
+
+  --clr-accent-100: rgb(66, 133, 244);
+  --clr-accent-200: rgb(51, 103, 214);
   --clr-accent-500: rgb(64, 78, 237);
+
+  --clr-accent-green-100: rgb(94, 246, 135);
+  --clr-accent-green-200: rgb(39, 192, 80);
 
   --ff-primary: "Open Sans", "Noto Sans", sans-serif;
   --ff-heading: "Rowdies", "Noto Sans", sans-serif;
@@ -83,4 +88,8 @@ svg {
   --fs-500: 2.5rem; /* 40px */
   --fs-600: 3rem; /* 48px */
   --fs-700: 3.5rem; /* 56px */
+}
+
+body {
+  min-width: 300px;
 }

@@ -1,6 +1,7 @@
 import axios from "axios";
 async function getNamaztime(place_id) {
-  const url = `http://localhost:80/api/v1/namazTime/${place_id}`;
+  const base_url = import.meta.env.VITE_SERVER_BASE_URL;
+  const url = `${base_url}/api/v1/namazTime/${place_id}`;
   let namazTimeData = null;
   let statusCode = null;
   let statusMessage = null;
@@ -10,9 +11,8 @@ async function getNamaztime(place_id) {
       status: statusCode,
       statusText: statusMessage,
     } = await axios.get(url));
-    console.log(namazTimeData, statusCode, statusMessage);
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    return { error: err.message };
   }
   //for  document not found reposonse is null
   if (statusCode === 200 && namazTimeData === null) {
@@ -25,8 +25,7 @@ async function getNamaztime(place_id) {
   //if  server error
   if (statusCode === 500) {
     //here we throw an error later and handle with error element of router
-    console.error(namazTimeData.Error);
-    return null;
+    return { error: "server error" };
   }
 }
 export default getNamaztime;

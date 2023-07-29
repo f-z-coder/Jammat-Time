@@ -7,6 +7,7 @@ import AddingMarkersContext from "../contexts/addingMarkers.js";
 import MarkersContext from "../contexts/markersContext.js";
 
 import RootLayout from "../layouts/rootLayout/RootLayout.jsx";
+import ErrorElement from "../components/errorElement/errorElement.jsx";
 import MapLayout from "../layouts/mapLayout/MapLayout.jsx";
 import NearByPlacesLayout from "../layouts/nearByPlacesLayout/NearByPlacesLayout.jsx";
 import PlaceDetailsLayout from "../layouts/placeDetailsLayout/PlaceDetailsLayout.jsx";
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorElement />,
     children: [
       {
         path: "/map",
@@ -39,9 +41,6 @@ function App() {
   const [currentLocation, setCurrentLocation] = useState(null);
   const markersDataRef = useRef(null);
   const addingMarkers = useRef(false);
-
-  console.log("App render", map, currentLocation, markersDataRef);
-
   return (
     <MapContext.Provider value={[map, setMap]}>
       <CurrentLocationContext.Provider

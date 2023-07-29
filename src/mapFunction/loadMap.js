@@ -13,7 +13,7 @@ async function loadMap(loader, mapContainerElement) {
     const { Map } = await loader.importLibrary("maps");
     map = new Map(mapContainerElement, mapOptions);
   } catch (e) {
-    console.error(e);
+    throw new Error(e.message);
   }
   return map;
 }

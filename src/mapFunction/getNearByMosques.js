@@ -18,7 +18,7 @@ async function getNearByMosques(loader, map, currentlocation) {
       });
     });
   } catch (err) {
-    console.log(err);
+    throw new Error(err.message);
   }
   return mosques;
 }

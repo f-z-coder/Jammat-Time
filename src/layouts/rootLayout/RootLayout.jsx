@@ -10,8 +10,6 @@ function RootLayout() {
   const navigate = useNavigate();
 
   const className = showMap ? styles.showMap : styles.hideMap;
-  console.log("RootLayout render", pathname);
-
   useEffect(() => {
     if (pathname === "/") {
       //just changing url nothing else
@@ -23,12 +21,14 @@ function RootLayout() {
     }
   }, [navigate, setShowMap, pathname, place_id]);
   return (
-    <div>
-      <div className={className}>
+    <div className={styles.rootLayout}>
+      <div className={className + " " + styles.map}>
         <Map />
       </div>
       {/* this outlet only usefull for to display placedetails layout  */}
-      <Outlet />
+      <div className={styles.outlet}>
+        <Outlet />
+      </div>
     </div>
   );
 }

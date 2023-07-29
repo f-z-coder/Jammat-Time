@@ -19,7 +19,7 @@ async function addMultipleMarkers(loader, map, places, markerClickHandler) {
       markers.push(marker);
     });
   } catch (e) {
-    console.log(e);
+    throw new Error(e.message);
   }
   return markers;
 }

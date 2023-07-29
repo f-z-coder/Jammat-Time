@@ -1,6 +1,7 @@
 import axios from "axios";
 async function createNamazTime(place_id, namazTimeDetails) {
-  const url = `http://localhost:80/api/v1/namazTime/${place_id}`;
+  const base_url = import.meta.env.VITE_SERVER_BASE_URL;
+  const url = `${base_url}/api/v1/namazTime/${place_id}`;
   const dataToCreate = { NamazTimeDetails: namazTimeDetails };
   let createdNamazTimeData = null;
   let statusCode = null;
@@ -11,19 +12,20 @@ async function createNamazTime(place_id, namazTimeDetails) {
       status: statusCode,
       statusText: statusMessage,
     } = await axios.post(url, dataToCreate));
-    console.log(createdNamazTimeData, statusCode, statusMessage);
   } catch (err) {
-    console.log(err);
+    return { error: err.message };
   }
   // if document found  create successfully
   if (statusCode === 201) {
-    return statusMessage;
+    return {
+      createdNamazTimeData: createdNamazTimeData,
+      statusCode: statusCode,
+      statusMessage: statusMessage,
+    };
   }
   //if  server error
   if (statusCode === 500) {
-    //here we throw an error later and handle with error element of router
-    console.error(createdNamazTimeData.Error);
-    return null;
+    return { error: "Server error" };
   }
 }
 export default createNamazTime;

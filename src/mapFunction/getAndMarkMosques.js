@@ -13,11 +13,9 @@ async function getAndMarkMosques(
     let mosques = null;
     if (nearByMosquesMap.has(key)) {
       mosques = nearByMosquesMap.get(key);
-      console.log("acces previously fetch mosques: ", nearByMosquesMap);
     } else {
       mosques = await getNearByMosques(loader, map, currentLocation);
       nearByMosquesMap.set(key, mosques);
-      console.log("fetch mosques new  ", nearByMosquesMap);
     }
     const markers = await addMultipleMarkers(
       loader,
@@ -29,7 +27,6 @@ async function getAndMarkMosques(
     map.panTo(currentLocation);
     map.setZoom(15);
     markersDataRef.current = markers;
-    console.log("Markers added");
   }
 }
 

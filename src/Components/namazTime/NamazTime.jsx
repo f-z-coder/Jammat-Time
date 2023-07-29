@@ -4,10 +4,10 @@ import { useImmer } from "use-immer";
 import createNamazTime from "../../API/createNamazTime";
 import updateNamazTime from "../../API/updateNamazTIme";
 import getNamaztime from "../../API/getNamazTime";
-
 function NamazTime({ place_id }) {
   const [editable, setEditable] = useState(false);
   const isDataOnServer = useRef(true);
+
   const defaultNamazTimeDetails = [
     {
       Namaz: "Fajar",
@@ -45,11 +45,12 @@ function NamazTime({ place_id }) {
   useEffect(() => {
     async function getNamazTimeData() {
       const namazTimeData = await getNamaztime(place_id);
-      if (namazTimeData == null) {
-        isDataOnServer.current = false;
-        console.log(isDataOnServer);
-      } else {
-        setNamazTime(namazTimeData);
+      if (!namazTimeData.error) {
+        if (namazTimeData == null) {
+          isDataOnServer.current = false;
+        } else {
+          setNamazTime(namazTimeData);
+        }
       }
     }
     getNamazTimeData();
@@ -112,8 +113,8 @@ function NamazTime({ place_id }) {
           <div>If time is incorrect please Edit it to help other</div>
         )}
         <button
+          className={editable ? Style.saveButton : Style.editButton}
           onClick={() => {
-            console.log(isDataOnServer);
             if (!editable) {
               setEditable(true);
             } else {

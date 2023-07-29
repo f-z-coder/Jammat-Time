@@ -17,7 +17,7 @@ async function getPlaceDetails(loader, map, place_id) {
       });
     });
   } catch (err) {
-    console.error(err);
+    throw new Error(err.message);
   }
   return placeDetails;
 }

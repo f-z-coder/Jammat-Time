@@ -29,11 +29,8 @@ function useAddMarkers() {
   );
   //adding marker synchronization with removing
   const addMarkers = useCallback(async () => {
-    console.log("before adding ", addingMarkers.current);
     if (addingMarkers.current == false) {
       addingMarkers.current = true;
-      console.log("btw,", addingMarkers.current);
-      console.log("adding marker synchronization");
       await getAndMarkMosques(
         loader,
         map,
@@ -43,7 +40,6 @@ function useAddMarkers() {
         markersDataRef
       );
       addingMarkers.current = false;
-      console.log("after adding,", addingMarkers.current);
     }
   }, [
     loader,
@@ -57,10 +53,8 @@ function useAddMarkers() {
 
   //clean up functions for removing added markers
   const removeMarkers = useCallback(async () => {
-    console.log("before removing", addingMarkers.current);
     if (addingMarkers.current === false) {
       await removePreviousMarkers(map, markersDataRef);
-      console.log("after removeing", addingMarkers.current);
     }
   }, [map, markersDataRef, addingMarkers]);
 
