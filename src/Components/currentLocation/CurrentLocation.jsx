@@ -4,10 +4,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import getCurrentLocation from "../../utilsFunction/getCurrentLocation.js";
 import currentLocationContext from "../../contexts/currentLocation.js";
+import mapContext from "../../contexts/mapContext";
 function CurrentLocation() {
   const [currentLocationState, setCurrentLocationState] = useContext(
     currentLocationContext
   );
+  const [map] = useContext(mapContext);
   const url = useLocation();
   const navigate = useNavigate();
   const handleClick = async () => {
@@ -24,6 +26,9 @@ function CurrentLocation() {
       if (url.pathname === "/map") {
         //changing the url to show markers
         navigate("/map/nearbyplaces");
+      } else if (map !== null) {
+        map.panTo(currentLocationState);
+        map.setZoom(14);
       }
     } catch (e) {
       throw Error(e.message);

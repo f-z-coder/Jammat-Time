@@ -5,7 +5,6 @@ import { Skeleton } from "@mui/material";
 function PlaceDetails({ place_id }) {
   const { isLoaded, placeDetails } = useGetPlaceDetails(place_id);
   const { photos, name, formatted_address, url } = placeDetails;
-  console.log(isLoaded);
   return (
     <div>
       <div className={styles.gallery}>

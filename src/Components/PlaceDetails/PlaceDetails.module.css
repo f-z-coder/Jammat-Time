@@ -36,24 +36,21 @@
   font-weight: var(--fw-semibold);
 }
 .direction {
-  flex-basis: 5rem;
+  flex-basis: 3rem;
 }
 .directionButton {
   /* Customize the direction button styles */
   background-color: var(--clr-accent-100); /* Google Maps blue */
   color: var(--clr-neutral-100);
   border: none;
-  border-radius: 10px;
+  border-radius: 1rem;
   cursor: pointer;
-  padding: 8px;
+  padding: 0.5rem;
   transition: background-color 0.2s ease;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
-  width: 100%;
   text-align: center;
-  height: inherit;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
+  width: 3rem;
+  height: 3rem;
 }
 
 /* Direction Button Icon styles */
