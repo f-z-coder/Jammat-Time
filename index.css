@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100&family=Roboto:wght@400;500;700&display=swap");
 /* Box sizing rules */
 *,
 *::before,
@@ -68,17 +69,15 @@ svg {
   --clr-accent-200: rgb(51, 103, 214);
   --clr-accent-500: rgb(64, 78, 237);
 
-  --clr-accent-green-100: rgb(94, 246, 135);
+  --clr-accent-green-100: rgb(71, 238, 116);
   --clr-accent-green-200: rgb(39, 192, 80);
 
-  --ff-primary: "Open Sans", "Noto Sans", sans-serif;
-  --ff-heading: "Rowdies", "Noto Sans", sans-serif;
+  --ff-primary: "Roboto", sans-serif;
 
   --fw-normal: 400;
   --fw-medium: 500;
   --fw-semibold: 600;
   --fw-bold: 700;
-  --fw-extrabold: 800;
 
   --fs-100: 0.875rem; /* 14px */
   --fs-200: 1rem; /* 16px */
@@ -92,4 +91,5 @@ svg {
 
 body {
   min-width: 300px;
+  font-family: var(--ff-primary);
 }

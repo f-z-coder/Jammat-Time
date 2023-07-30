@@ -13,19 +13,30 @@ async function createNamazTime(place_id, namazTimeDetails) {
       statusText: statusMessage,
     } = await axios.post(url, dataToCreate));
   } catch (err) {
-    return { error: err.message };
+    return {
+      data: null,
+      statusCode: statusCode,
+      statusMessage: statusMessage,
+      error: err.message,
+    };
   }
   // if document found  create successfully
   if (statusCode === 201) {
     return {
-      createdNamazTimeData: createdNamazTimeData,
+      data: createdNamazTimeData.NamazTimeDetails,
       statusCode: statusCode,
       statusMessage: statusMessage,
+      error: null,
     };
   }
   //if  server error
   if (statusCode === 500) {
-    return { error: "Server error" };
+    return {
+      data: null,
+      statusCode: statusCode,
+      statusMessage: statusMessage,
+      error: "Server error",
+    };
   }
 }
 export default createNamazTime;

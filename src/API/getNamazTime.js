@@ -12,20 +12,40 @@ async function getNamaztime(place_id) {
       statusText: statusMessage,
     } = await axios.get(url));
   } catch (err) {
-    return { error: err.message };
+    return {
+      data: null,
+      statusCode: statusCode,
+      statusMessage: statusMessage,
+      error: err.message,
+    };
   }
   //for  document not found reposonse is null
   if (statusCode === 200 && namazTimeData === null) {
-    return namazTimeData;
+    return {
+      data: null,
+      statusCode: statusCode,
+      statusMessage: statusMessage,
+      error: "Document not found",
+    };
   }
   // if document found  reponsone is documents with place_id and NamazTimeDetails
   if (statusCode === 200 && namazTimeData !== null) {
-    return namazTimeData.NamazTimeDetails;
+    return {
+      data: namazTimeData.NamazTimeDetails,
+      statusCode: statusCode,
+      statusMessage: statusMessage,
+      error: null,
+    };
   }
   //if  server error
   if (statusCode === 500) {
     //here we throw an error later and handle with error element of router
-    return { error: "server error" };
+    return {
+      data: null,
+      statusCode: statusCode,
+      statusMessage: statusMessage,
+      error: "server error",
+    };
   }
 }
 export default getNamaztime;

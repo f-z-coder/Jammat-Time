@@ -13,20 +13,31 @@ async function updateNamazTime(place_id, namazTimeDetails) {
       statusText: statusMessage,
     } = await axios.patch(url, dataToUpdate));
   } catch (err) {
-    return { error: err.message };
+    return {
+      data: null,
+      statusCode: statusCode,
+      statusMessage: statusMessage,
+      error: err.message,
+    };
   }
   // if document found  updated successfully
   if (statusCode === 202) {
     return {
-      updateNamazTime: updatedNamazTimeData,
+      data: updatedNamazTimeData.NamazTimeDetails,
       statusCode: statusCode,
       statusMessage: statusMessage,
+      error: null,
     };
   }
   //if  server error
   if (statusCode === 500) {
     //here we throw an error later and handle with error element of router
-    return { error: "server error" };
+    return {
+      data: null,
+      statusCode: statusCode,
+      statusMessage: statusMessage,
+      error: "server error",
+    };
   }
 }
 export default updateNamazTime;

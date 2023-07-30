@@ -6,6 +6,9 @@ async function getPlaceDetails(loader, map, place_id) {
   let placeDetails;
   try {
     const { PlacesService } = await loader.importLibrary("places");
+    if (map == null) {
+      map = document.createElement("div");
+    }
     const service = new PlacesService(map);
     placeDetails = new Promise((resolve, reject) => {
       service.getDetails(request, (placeResult, status) => {

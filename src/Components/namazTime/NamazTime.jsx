@@ -1,12 +1,21 @@
 import Style from "./NamazTime.module.css";
 import { Fragment, useState, useEffect, useRef } from "react";
+import { CircularProgress } from "@mui/material";
 import { useImmer } from "use-immer";
 import createNamazTime from "../../API/createNamazTime";
 import updateNamazTime from "../../API/updateNamazTIme";
 import getNamaztime from "../../API/getNamazTime";
+import Toast from "../toast/Toast";
 function NamazTime({ place_id }) {
+  const buttonRef = useRef();
   const [editable, setEditable] = useState(false);
-  const isDataOnServer = useRef(true);
+  const [showProgress, setShowProgress] = useState(false);
+  const isDataOnServer = useRef(false);
+  const [toastDetails, setToastDetails] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
 
   const defaultNamazTimeDetails = [
     {
@@ -41,16 +50,78 @@ function NamazTime({ place_id }) {
     },
   ];
   const [namazTime, setNamazTime] = useImmer(defaultNamazTimeDetails);
+  const handleClick = async () => {
+    if (!editable) {
+      setEditable(true);
+    } else {
+      setEditable(false);
+      buttonRef.current.disabled = true;
+      setShowProgress(true);
+      if (!isDataOnServer.current) {
+        const { data, error } = await createNamazTime(place_id, namazTime);
+        buttonRef.current.disabled = false;
+        setShowProgress(false);
+        if (data !== null) {
+          setToastDetails({
+            open: true,
+            message: "Created Successfully",
+            severity: "success",
+          });
+          isDataOnServer.current = true;
+        } else {
+          setToastDetails({
+            open: true,
+            message: error,
+            severity: "error",
+          });
+        }
+      } else {
+        const { data, error } = await updateNamazTime(place_id, namazTime);
+        buttonRef.current.disabled = false;
+        setShowProgress(false);
+
+        if (data !== null) {
+          setToastDetails({
+            open: true,
+            message: "Updated Successfully",
+            severity: "success",
+          });
+          isDataOnServer.current = true;
+        } else {
+          setToastDetails({
+            open: true,
+            message: error,
+            severity: "error",
+          });
+        }
+      }
+    }
+  };
+  const handleInputChange = (e) => {
+    const namazName = e.target.name.split(" ")[0];
+    const azanTimeORNamazTime = e.target.name.split(" ")[1];
+    const value = e.target.value;
+    setNamazTime((preTime) => {
+      const Namaz = preTime.find((element) => element.Namaz === namazName);
+      Namaz[azanTimeORNamazTime] = value;
+    });
+  };
 
   useEffect(() => {
     async function getNamazTimeData() {
-      const namazTimeData = await getNamaztime(place_id);
-      if (!namazTimeData.error) {
-        if (namazTimeData == null) {
-          isDataOnServer.current = false;
-        } else {
-          setNamazTime(namazTimeData);
-        }
+      const { data, error } = await getNamaztime(place_id);
+
+      if (data !== null) {
+        isDataOnServer.current = true;
+        setNamazTime(data);
+      } else if (error === "Document not found") {
+        isDataOnServer.current = false;
+      } else {
+        setToastDetails({
+          open: true,
+          message: error,
+          severity: "error",
+        });
       }
     }
     getNamazTimeData();
@@ -58,6 +129,7 @@ function NamazTime({ place_id }) {
 
   return (
     <div>
+      <Toast toastDetails={toastDetails} />
       <div className={Style.time_grid}>
         <div>Prayer</div>
         <div>Azan Time</div>
@@ -71,18 +143,7 @@ function NamazTime({ place_id }) {
                   name={time.Namaz + " AzanTime"}
                   type="time"
                   value={time.AzanTime}
-                  onChange={(e) => {
-                    const namazName = e.target.name.split(" ")[0];
-                    const value = e.target.value;
-
-                    setNamazTime((preTime) => {
-                      const Namaz = preTime.find(
-                        (element) => element.Namaz === namazName
-                      );
-                      Namaz["AzanTime"] = value;
-                    });
-                    // e.target.blur();
-                  }}
+                  onChange={handleInputChange}
                 />
               </div>
               <div className={editable ? undefined : Style.disable}>
@@ -90,18 +151,7 @@ function NamazTime({ place_id }) {
                   name={time.Namaz + " NamazTime"}
                   type="time"
                   value={time.NamazTime}
-                  onChange={(e) => {
-                    const namazName = e.target.name.split(" ")[0];
-                    const value = e.target.value;
-                    setNamazTime((preTime) => {
-                      const Namaz = preTime.find(
-                        (element) => element.Namaz === namazName
-                      );
-                      Namaz["NamazTime"] = value;
-                    });
-                    // e.target.blur();
-                    console.log(time);
-                  }}
+                  onChange={handleInputChange}
                 />
               </div>
             </Fragment>
@@ -113,22 +163,12 @@ function NamazTime({ place_id }) {
           <div>If time is incorrect please Edit it to help other</div>
         )}
         <button
+          ref={buttonRef}
           className={editable ? Style.saveButton : Style.editButton}
-          onClick={() => {
-            if (!editable) {
-              setEditable(true);
-            } else {
-              setEditable(false);
-              if (!isDataOnServer.current) {
-                createNamazTime(place_id, namazTime);
-                isDataOnServer.current = true;
-              } else {
-                updateNamazTime(place_id, namazTime);
-              }
-            }
-          }}
+          onClick={handleClick}
         >
           {editable ? "Save" : "Edit"}
+          {showProgress && <CircularProgress size={20} />}
         </button>
       </div>
     </div>

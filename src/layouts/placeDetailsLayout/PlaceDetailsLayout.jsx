@@ -7,7 +7,7 @@ function PlaceDetailsLayout() {
   const { pathname } = useLocation();
   const place_id = pathname.split("/").pop();
   return (
-    <div className={styles.laceDetailsLayout}>
+    <div className={styles.placeDetailsLayout}>
       <div className={styles.backButton}>
         <BackButton />
       </div>

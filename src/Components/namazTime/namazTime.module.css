@@ -6,6 +6,8 @@
   text-align: center;
   grid-template-columns: repeat(3, auto);
   box-shadow: 0.2rem 0.2rem 0.5rem;
+  font-size: var(--fs-200);
+  font-weight: var(--fw-bold);
 }
 .disable > input[type="time"]::-webkit-calendar-picker-indicator {
   display: none;
@@ -26,6 +28,8 @@ input[type="time"] {
 
 .editable_control_section div {
   text-transform: capitalize;
+  font-size: var(--fs-200);
+  font-weight: var(--fw-medium);
 }
 
 .editable_control_section button {
@@ -36,9 +40,16 @@ input[type="time"] {
   padding: 8px 16px;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
   transition: background-color 0.2s ease;
-  font-size: 16px;
+  font-size: var(--fs-300);
+  font-weight: var(--fw-medium);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
-
+.editable_control_section button[disabled] {
+  background-color: rgb(147, 140, 133);
+}
 .editButton {
   background-color: var(--clr-accent-100); /* Google Maps blue */
 }
