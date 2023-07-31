@@ -1,14 +1,15 @@
 .gallery {
   display: flex;
   gap: 0.1rem;
+  height: 17rem;
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
 }
 .mosque_photos {
-  min-width: 15rem;
-  width: 15rem;
-  height: 15rem;
-  max-width: 15rem;
+  min-width: 17rem;
+  width: 17rem;
+  height: 100%;
+  max-width: 17rem;
   scroll-snap-align: center;
 }
 .details_section {

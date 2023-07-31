@@ -1,7 +1,8 @@
 import styles from "./currentLocation.module.css";
+import { CircularProgress } from "@mui/material";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import getCurrentLocation from "../../utilsFunction/getCurrentLocation.js";
 import currentLocationContext from "../../contexts/currentLocation.js";
 import mapContext from "../../contexts/mapContext";
@@ -12,9 +13,13 @@ function CurrentLocation() {
   const [map] = useContext(mapContext);
   const url = useLocation();
   const navigate = useNavigate();
+  //this state is used to show loader when current location is fetching
+  const [isLocationGet, setIsLocationGet] = useState(true);
   const handleClick = async () => {
     try {
+      setIsLocationGet(false);
       const currentLocationOfUser = await getCurrentLocation();
+      setIsLocationGet(true);
       if (
         currentLocationState === null ||
         currentLocationOfUser.lat !== currentLocationState.lat ||
@@ -36,7 +41,7 @@ function CurrentLocation() {
   };
   return (
     <button className={styles.locationButton} onClick={handleClick}>
-      <MyLocationIcon />
+      {isLocationGet ? <MyLocationIcon /> : <CircularProgress />}
     </button>
   );
 }
