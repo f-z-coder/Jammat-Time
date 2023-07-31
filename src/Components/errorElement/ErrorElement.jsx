@@ -18,7 +18,7 @@ function ErrorElement() {
           }}
           className={styles.errorButon}
         >
-          GO back
+          Go Back
         </button>
       </div>
     </div>

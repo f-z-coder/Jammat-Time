@@ -1,4 +1,4 @@
-import { useContext, useEffect, useCallback } from "react";
+import { useContext, useEffect, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import loaderContext from "../contexts/loaderContext";
 import mapContext from "../contexts/mapContext";
@@ -16,6 +16,7 @@ function useAddMarkers() {
   const nearByMosquesMap = useContext(nearByMosquesContext);
   const navigate = useNavigate();
   const markersDataRef = useContext(markersContext);
+  const [isMarkersAdded, setIsMarkersAdded] = useState(false);
   //this flag to check marker adding is in progress or not for presistent of this flag while rendering (note :Not re-rendering) multiple time we use context provided app not local useref because it not presist during rendering
   const addingMarkers = useContext(addingMarkersContext);
 
@@ -31,6 +32,7 @@ function useAddMarkers() {
   const addMarkers = useCallback(async () => {
     if (addingMarkers.current == false) {
       addingMarkers.current = true;
+
       await getAndMarkMosques(
         loader,
         map,
@@ -39,6 +41,7 @@ function useAddMarkers() {
         markerClickHandler,
         markersDataRef
       );
+      setIsMarkersAdded(true);
       addingMarkers.current = false;
     }
   }, [
@@ -65,5 +68,7 @@ function useAddMarkers() {
     //clean up functions for removing added markers
     return removeMarkers;
   }, [addMarkers, removeMarkers]);
+
+  return isMarkersAdded;
 }
 export default useAddMarkers;

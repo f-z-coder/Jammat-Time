@@ -1,0 +1,14 @@
+.nearByPlacesLayout {
+  position: relative;
+}
+.backButton {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+.progressBar {
+  width: 100dvw;
+  height: 100dvh;
+  display: grid;
+  place-items: center;
+}

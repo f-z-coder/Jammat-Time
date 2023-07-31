@@ -9,16 +9,48 @@ function PlaceDetails({ place_id }) {
     <div>
       <div className={styles.gallery}>
         {isLoaded ? (
-          photos?.map((photo) => {
-            return (
+          photos?.length >= 2 ? (
+            photos?.map((photo) => {
+              return (
+                <img
+                  className={styles.mosque_photos}
+                  key={photo.getUrl()}
+                  src={photo.getUrl()}
+                  alt="Mosque Photo"
+                />
+              );
+            })
+          ) : photos?.length == 1 ? (
+            <>
               <img
                 className={styles.mosque_photos}
-                key={photo.getUrl()}
-                src={photo.getUrl()}
+                key={1}
+                src={photos[0].getUrl()}
                 alt="Mosque Photo"
               />
-            );
-          })
+              <img
+                className={styles.mosque_photos}
+                key={2}
+                src="../../../public/assets/defualt_Mosque.svg"
+                alt="Mosque Photo"
+              />
+            </>
+          ) : (
+            <>
+              <img
+                className={styles.mosque_photos}
+                key={1}
+                src="../../../public/assets/defualt_Mosque.svg"
+                alt="Mosque Photo"
+              />
+              <img
+                className={styles.mosque_photos}
+                key={2}
+                src="../../../public/assets/defualt_Mosque.svg"
+                alt="Mosque Photo"
+              />
+            </>
+          )
         ) : (
           <Skeleton variant="rounded" width={"100%"} height={"100%"} />
         )}

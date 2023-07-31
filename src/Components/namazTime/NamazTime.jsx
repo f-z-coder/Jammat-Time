@@ -140,6 +140,7 @@ function NamazTime({ place_id }) {
               <div>{time.Namaz}</div>
               <div className={editable ? undefined : Style.disable}>
                 <input
+                  disabled={!editable}
                   name={time.Namaz + " AzanTime"}
                   type="time"
                   value={time.AzanTime}
@@ -148,6 +149,7 @@ function NamazTime({ place_id }) {
               </div>
               <div className={editable ? undefined : Style.disable}>
                 <input
+                  disabled={!editable}
                   name={time.Namaz + " NamazTime"}
                   type="time"
                   value={time.NamazTime}

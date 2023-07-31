@@ -3,7 +3,7 @@ import GoogleMap from "../googleMap/GoogleMap";
 import CurrentLocation from "../currentLocation/CurrentLocation";
 function Map() {
   return (
-    <div className={styles.map}>
+    <div className={styles.mapContainer}>
       <div className={styles.googleMapContainer}>
         <GoogleMap />
       </div>
