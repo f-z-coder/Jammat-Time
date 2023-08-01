@@ -1,4 +1,11 @@
 async function getCurrentLocation() {
+  const locationOptions = {
+    enableHighAccuracy: false, //gps intense tasks if true and get accurate location
+    timeout: 60000, // maxtime to wait for geting location in ms
+    maximumAge: 300000, // this is used to get cached location that when timeing for cached is not older than maximum age in ms
+    //here we set 300000 means use 5min older location
+  };
+
   let currentLocation = new Promise((resolve, reject) => {
     // Check if geolocation is supported by the browser
     if ("geolocation" in navigator) {
@@ -17,7 +24,7 @@ async function getCurrentLocation() {
           // Handle errors, e.g. user denied location sharing permissions
           reject(error);
         },
-        { enableHighAccuracy: true }
+        locationOptions
       );
     } else {
       // Geolocation is not supported by the browser

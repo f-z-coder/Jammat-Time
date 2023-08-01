@@ -36,6 +36,7 @@ function CurrentLocation() {
         map.setZoom(14);
       }
     } catch (e) {
+      setIsLocationGet(true);
       throw Error(e.message);
     }
   };

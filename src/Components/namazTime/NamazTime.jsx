@@ -138,7 +138,7 @@ function NamazTime({ place_id }) {
           return (
             <Fragment key={time.Namaz}>
               <div>{time.Namaz}</div>
-              <div className={editable ? undefined : Style.disable}>
+              <div className={editable ? Style.enable : Style.disable}>
                 <input
                   disabled={!editable}
                   name={time.Namaz + " AzanTime"}
@@ -147,7 +147,7 @@ function NamazTime({ place_id }) {
                   onChange={handleInputChange}
                 />
               </div>
-              <div className={editable ? undefined : Style.disable}>
+              <div className={editable ? Style.enable : Style.disable}>
                 <input
                   disabled={!editable}
                   name={time.Namaz + " NamazTime"}

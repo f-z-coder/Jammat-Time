@@ -9,13 +9,28 @@
   font-size: var(--fs-200);
   font-weight: var(--fw-bold);
 }
-.disable > input[type="time"]::-webkit-calendar-picker-indicator {
-  display: none;
-}
+
 input[type="time"] {
   all: unset;
   font-size: var(--fs-200);
   font-weight: var(--fw-medium);
+}
+
+/* Hide the default arrow in browsers that support the pseudo-element */
+.disable > input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.enable > input[type="time"] {
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+/* Optional: You can add additional styles for focus and hover states */
+.enable > input[type="time"]:focus {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 .editable_control_section {
   display: flex;
