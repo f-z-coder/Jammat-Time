@@ -13,7 +13,7 @@ function Toast({ toastDetails }) {
       onClose={() => {
         setOpen(false);
       }}
-      autoHideDuration={2000}
+      autoHideDuration={3000}
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
     >
       <Alert

@@ -1,5 +1,6 @@
 import styles from "./currentLocation.module.css";
 import { CircularProgress } from "@mui/material";
+import Toast from "../toast/Toast";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useContext, useState } from "react";
@@ -15,7 +16,21 @@ function CurrentLocation() {
   const navigate = useNavigate();
   //this state is used to show loader when current location is fetching
   const [isLocationGet, setIsLocationGet] = useState(true);
+
+  const [toastDetails, setToastDetails] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
   const handleClick = async () => {
+    //close toast if open
+    if (toastDetails.open) {
+      setToastDetails({
+        open: false,
+        message: "",
+        severity: "success",
+      });
+    }
     try {
       setIsLocationGet(false);
       const currentLocationOfUser = await getCurrentLocation();
@@ -37,13 +52,23 @@ function CurrentLocation() {
       }
     } catch (e) {
       setIsLocationGet(true);
+      //open toast on error
+      setToastDetails({
+        open: true,
+        message: e.message,
+        severity: "error",
+      });
       throw Error(e.message);
     }
   };
   return (
-    <button className={styles.locationButton} onClick={handleClick}>
-      {isLocationGet ? <MyLocationIcon /> : <CircularProgress />}
-    </button>
+    <>
+      {toastDetails.open && <Toast toastDetails={toastDetails} />}
+
+      <button className={styles.locationButton} onClick={handleClick}>
+        {isLocationGet ? <MyLocationIcon /> : <CircularProgress />}
+      </button>
+    </>
   );
 }
 export default CurrentLocation;

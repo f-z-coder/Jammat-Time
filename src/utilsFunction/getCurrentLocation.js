@@ -28,7 +28,7 @@ async function getCurrentLocation() {
       );
     } else {
       // Geolocation is not supported by the browser
-      reject("Geolocation is not supported by this browser.");
+      reject("location is not supported by this browser Use Chrome.");
     }
   });
   return currentLocation;

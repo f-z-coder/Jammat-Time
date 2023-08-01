@@ -14,11 +14,11 @@ function ErrorElement() {
         <p className={styles.errorMessage}>{error.message}</p>
         <button
           onClick={() => {
-            navigate(-1);
+            navigate("/");
           }}
           className={styles.errorButon}
         >
-          Go Back
+          Home
         </button>
       </div>
     </div>
