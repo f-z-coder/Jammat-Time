@@ -1,11 +1,11 @@
 import PlaceDetails from "../../components/placeDetails/PlaceDetails";
 import BackButton from "../../components/backButton/BackButton";
 import styles from "./placeDetailsLayout.module.css";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import NamazTime from "../../components/namazTime/NamazTime";
 function PlaceDetailsLayout() {
-  const { pathname } = useLocation();
-  const place_id = pathname.split("/").pop();
+  let { place_id } = useParams();
+
   return (
     <div className={styles.placeDetailsLayout}>
       <div className={styles.backButton}>

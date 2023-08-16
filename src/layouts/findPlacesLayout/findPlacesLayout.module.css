@@ -1,0 +1,9 @@
+.findPlacesLayout {
+  position: relative;
+}
+.progressBar {
+  width: 100dvw;
+  height: 100dvh;
+  display: grid;
+  place-items: center;
+}

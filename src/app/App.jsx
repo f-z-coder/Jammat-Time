@@ -10,6 +10,7 @@ import RootLayout from "../layouts/rootLayout/RootLayout.jsx";
 import ErrorElement from "../components/errorElement/errorElement.jsx";
 import MapLayout from "../layouts/mapLayout/MapLayout.jsx";
 import NearByPlacesLayout from "../layouts/nearByPlacesLayout/NearByPlacesLayout.jsx";
+import FindPlacesLayout from "../layouts/findPlacesLayout/findPlacesLayout.jsx";
 import PlaceDetailsLayout from "../layouts/placeDetailsLayout/PlaceDetailsLayout.jsx";
 
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
           {
             path: "/map/nearbyplaces",
             element: <NearByPlacesLayout />,
+          },
+          {
+            path: "/map/findplaces/:searchQuery",
+            element: <FindPlacesLayout />,
           },
         ],
       },

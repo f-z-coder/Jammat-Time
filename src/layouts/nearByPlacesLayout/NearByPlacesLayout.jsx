@@ -1,4 +1,4 @@
-import useAddMarkers from "../../customHooks/useAddMarkers";
+import useAddMarkersOnNearbyPlaces from "../../customHooks/useAddMarkersOnNearbyPlaces";
 import BackButton from "../../components/backButton/BackButton";
 import currentLocationContext from "../../contexts/currentLocation";
 import getCurrentLocation from "../../utilsFunction/getCurrentLocation";
@@ -6,7 +6,7 @@ import { useEffect, useCallback, useContext, useState } from "react";
 import styles from "./nearByPlacesLayout.module.css";
 import { CircularProgress } from "@mui/material";
 function NearByPlacesLayout() {
-  const isMarkersAdded = useAddMarkers();
+  const isMarkersAdded = useAddMarkersOnNearbyPlaces();
   const [currentLocationState, setCurrentLocationState] = useContext(
     currentLocationContext
   );

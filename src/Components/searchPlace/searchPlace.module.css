@@ -1,0 +1,10 @@
+.searchPlace {
+  position: relative;
+  z-index: 1000;
+  background-color: white;
+  padding: 0.5rem;
+  box-shadow: 0 0.1rem 0.5rem black;
+}
+.textField {
+  height: 100%;
+}

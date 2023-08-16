@@ -9,7 +9,7 @@ import addingMarkersContext from "../contexts/addingMarkers";
 import getAndMarkMosques from "../mapFunction/getAndMarkMosques";
 import removePreviousMarkers from "../mapFunction/removePreviousMarkers";
 
-function useAddMarkers() {
+function useAddMarkersOnNearbyPlaces() {
   const loader = useContext(loaderContext);
   const [map] = useContext(mapContext);
   const [currentLocation] = useContext(currentLocationContext);
@@ -71,4 +71,4 @@ function useAddMarkers() {
 
   return isMarkersAdded;
 }
-export default useAddMarkers;
+export default useAddMarkersOnNearbyPlaces;
