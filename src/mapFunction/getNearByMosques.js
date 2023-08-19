@@ -7,6 +7,9 @@ async function getNearByMosques(loader, map, currentlocation) {
   let mosques;
   try {
     const { PlacesService } = await loader.importLibrary("places");
+    if (map == null) {
+      map = document.createElement("div");
+    }
     const service = new PlacesService(map);
     mosques = new Promise((resolve, reject) => {
       service.nearbySearch(request, (placeResult, status) => {

@@ -7,11 +7,13 @@ async function searchPlace(loader, map, searchQuery) {
   let places;
   try {
     const { PlacesService } = await loader.importLibrary("places");
+    if (map == null) {
+      map = document.createElement("div");
+    }
     const service = new PlacesService(map);
     places = new Promise((resolve, reject) => {
       service.findPlaceFromQuery(request, (placeResult, status) => {
         if (status == "OK") {
-          console.log(placeResult);
           resolve(placeResult);
         } else {
           reject(status);

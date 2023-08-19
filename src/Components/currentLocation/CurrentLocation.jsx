@@ -43,10 +43,11 @@ function CurrentLocation() {
         //changing the current location  if its null or its lag lat change
         setCurrentLocationState(currentLocationOfUser);
       }
-      if (url.pathname === "/map") {
+      if (url.pathname !== "/map/nearbyplaces") {
         //changing the url to show markers
         navigate("/map/nearbyplaces");
-      } else if (map !== null) {
+      }
+      if (map !== null && currentLocationState != null) {
         map.panTo(currentLocationState);
         map.setZoom(14);
       }
@@ -58,7 +59,6 @@ function CurrentLocation() {
         message: e.message,
         severity: "error",
       });
-      throw Error(e.message);
     }
   };
   return (

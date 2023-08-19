@@ -1,16 +1,13 @@
 .rootLayout {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 .map {
-  min-width: 300px;
-  width: 100dvw;
-  height: 100dvh;
-}
-.outlet {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
+  height: 100%;
 }
 .hideMap {
   display: none;

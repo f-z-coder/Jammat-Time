@@ -33,21 +33,25 @@ function useAddMarkersOnFindPlaces() {
   const addMarkers = useCallback(async () => {
     if (addingMarkers.current == false) {
       addingMarkers.current = true;
-      const places = await searchPlace(loader, map, searchQuery);
-      const place = places[0];
-      const location = {
-        lat: place.geometry.location.lat(),
-        lng: place.geometry.location.lng(),
-      };
-      await getAndMarkMosques(
-        loader,
-        map,
-        location,
-        nearByMosquesMap,
-        markerClickHandler,
-        markersDataRef
-      );
-      setIsMarkersAdded(true);
+      try {
+        const places = await searchPlace(loader, map, searchQuery);
+        const place = places[0];
+        const location = {
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng(),
+        };
+        await getAndMarkMosques(
+          loader,
+          map,
+          location,
+          nearByMosquesMap,
+          markerClickHandler,
+          markersDataRef
+        );
+        setIsMarkersAdded(true);
+      } catch (e) {
+        setIsMarkersAdded(true);
+      }
       addingMarkers.current = false;
     }
   }, [
