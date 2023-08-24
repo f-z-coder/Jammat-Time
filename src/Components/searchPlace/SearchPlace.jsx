@@ -3,16 +3,19 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import Styles from "./searchPlace.module.css";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useContext } from "react";
+import searchQueryContext from "../../contexts/searchQueryContext";
+import predictedPlacesContext from "../../contexts/predictedPlacesContext";
+import { useLocation, useNavigate } from "react-router-dom";
 function SearchPlace() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useContext(searchQueryContext);
+  const [, setPlacePredictionValue] = useContext(predictedPlacesContext);
   const navigate = useNavigate();
-  const { searchQuery: searchvalue } = useParams();
+  const { pathname } = useLocation();
+  const showBackButton = pathname !== "/map";
   return (
     <div className={Styles.searchPlace}>
       <TextField
-        gap
         className={Styles.textField}
         fullWidth
         size="small"
@@ -20,16 +23,20 @@ function SearchPlace() {
         onChange={(e) => {
           setSearchQuery(e.target.value);
         }}
-        placeholder="Find a Masjid"
+        placeholder="Search in Area..."
         InputProps={{
           startAdornment: (
             <>
-              {searchvalue && (
+              {showBackButton && (
                 <InputAdornment position="start">
                   <IconButton
+                    sx={{ paddingRight: 2 }}
                     onClick={async () => {
-                      navigate(-1);
-                      setSearchQuery("");
+                      navigate("/map");
+                      setPlacePredictionValue([]);
+                      if (searchQuery !== "") {
+                        setSearchQuery("");
+                      }
                     }}
                   >
                     <ArrowBackOutlinedIcon />
@@ -44,9 +51,9 @@ function SearchPlace() {
               {searchQuery.length > 0 && (
                 <InputAdornment position="start">
                   <IconButton
-                    disabled={searchQuery.length === 0}
                     onClick={async () => {
                       setSearchQuery("");
+                      setPlacePredictionValue([]);
                     }}
                   >
                     <ClearOutlinedIcon />
@@ -58,7 +65,10 @@ function SearchPlace() {
                   disabled={searchQuery.length == 0}
                   onClick={async () => {
                     const url = `/map/findplaces/${searchQuery}`;
-                    navigate(url);
+                    setPlacePredictionValue([]);
+                    if (pathname !== url) {
+                      navigate(url);
+                    }
                   }}
                 >
                   <SearchRoundedIcon />

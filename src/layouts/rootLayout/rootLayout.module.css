@@ -15,3 +15,11 @@
 .showMap {
   display: block;
 }
+@media (min-width: 25rem) {
+  .outlet {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    left: 1rem;
+  }
+}

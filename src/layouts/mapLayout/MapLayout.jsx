@@ -1,12 +1,16 @@
 import { Outlet } from "react-router-dom";
 import SearchPlace from "../../components/searchPlace/SearchPlace";
+import PlacePredictions from "../../components/placePredictions/PlacePredictions";
+import useGetPlacePredictions from "../../customHooks/useGetPlacePredictions";
 import styles from "./mapLayout.module.css";
-//this layout  use just to sync  patth and layout and to get oulet from /map/nearbyplace
+
 function MapLayout() {
+  const predictedPlaces = useGetPlacePredictions();
   return (
     <div className={styles.mapLayout}>
-      <div className={styles.searchPlace}>
+      <div className={styles.searchWrapper}>
         <SearchPlace />
+        {predictedPlaces.length > 0 && <PlacePredictions />}
       </div>
       <div className={styles.outlet}>
         <Outlet />

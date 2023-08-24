@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useState, useRef } from "react";
 
 import MapContext from "../contexts/mapContext.js";
+import SearchQueryContext from "../contexts/searchQueryContext.js";
+import PredictedPlacesContext from "../contexts/predictedPlacesContext.js";
 import CurrentLocationContext from "../contexts/currentLocation.js";
 import AddingMarkersContext from "../contexts/addingMarkers.js";
 import MarkersContext from "../contexts/markersContext.js";
@@ -43,9 +45,11 @@ const router = createBrowserRouter([
 
 function App() {
   const [map, setMap] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentLocation, setCurrentLocation] = useState(null);
   const markersDataRef = useRef(null);
   const addingMarkers = useRef(false);
+  const [placePredictionValue, setPlacePredictionValue] = useState([]);
   return (
     <MapContext.Provider value={[map, setMap]}>
       <CurrentLocationContext.Provider
@@ -53,7 +57,13 @@ function App() {
       >
         <AddingMarkersContext.Provider value={addingMarkers}>
           <MarkersContext.Provider value={markersDataRef}>
-            <RouterProvider router={router} />
+            <SearchQueryContext.Provider value={[searchQuery, setSearchQuery]}>
+              <PredictedPlacesContext.Provider
+                value={[placePredictionValue, setPlacePredictionValue]}
+              >
+                <RouterProvider router={router} />
+              </PredictedPlacesContext.Provider>
+            </SearchQueryContext.Provider>
           </MarkersContext.Provider>
         </AddingMarkersContext.Provider>
       </CurrentLocationContext.Provider>

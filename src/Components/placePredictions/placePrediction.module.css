@@ -1,0 +1,27 @@
+.placePredictions {
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+.listItem {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  gap: 0.3rem;
+}
+.locationIcon {
+  padding: 0.5rem;
+}
+.itemDetails {
+  display: flex;
+  padding-top: 0.2rem;
+  flex-direction: column;
+  justify-content: center;
+}
+.itemMainText {
+  font-size: var(--fs-200);
+  font-weight: var(--fw-medium);
+}
+.itemSecondaryText {
+  font-size: var(--fs-100);
+  font-weight: var(--fw-normal);
+}

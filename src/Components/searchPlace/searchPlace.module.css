@@ -1,9 +1,6 @@
 .searchPlace {
-  position: relative;
-  z-index: 1000;
-  background-color: white;
   padding: 0.5rem;
-  box-shadow: 0 0.1rem 0.5rem black;
+  box-shadow: 0.1rem 0rem 0.3rem rgb(125, 124, 124);
 }
 .textField {
   height: 100%;

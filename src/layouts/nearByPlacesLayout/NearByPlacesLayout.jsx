@@ -34,9 +34,6 @@ function NearByPlacesLayout() {
 
   return (
     <div className={styles.nearByPlacesLayout}>
-      <div className={styles.backButton}>
-        <BackButton />
-      </div>
       {!isMarkersAdded && isLocationGet && (
         <div className={styles.progressBar}>
           <CircularProgress size={50} />
