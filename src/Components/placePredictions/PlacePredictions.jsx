@@ -18,13 +18,16 @@ function PlacePredictions() {
         return (
           <div
             onClick={() => {
+              const isMosque = placePrediction.types.includes("mosque");
               const placeSearch =
                 placePrediction.structured_formatting.main_text +
                 " " +
                 placePrediction.structured_formatting.secondary_text;
               setplacePredictionsValue([]);
               setSearchQuery(placeSearch);
-              if (pathname === "/map") {
+              if (isMosque) {
+                nagivate(`/placesdetails/${placePrediction.place_id}`);
+              } else if (pathname === "/map") {
                 nagivate(`/map/findplaces/${placeSearch}`);
               } else {
                 nagivate(`/map/findplaces/${placeSearch}`, { replace: true });
