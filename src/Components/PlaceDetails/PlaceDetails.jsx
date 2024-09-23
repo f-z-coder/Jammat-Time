@@ -31,7 +31,7 @@ function PlaceDetails({ place_id }) {
               <img
                 className={styles.mosque_photos}
                 key={2}
-                src={`${import.meta.env.BASE_URL}/assets/default_Mosque.svg`}
+                src="/assets/default_Mosque.svg"
                 alt="Mosque Photo"
               />
             </>
@@ -40,13 +40,13 @@ function PlaceDetails({ place_id }) {
               <img
                 className={styles.mosque_photos}
                 key={1}
-                src={`${import.meta.env.BASE_URL}/assets/default_Mosque.svg`}
+                src='/assets/default_Mosque.svg'
                 alt="Mosque Photo"
               />
               <img
                 className={styles.mosque_photos}
                 key={2}
-                src={`${import.meta.env.BASE_URL}/assets/default_Mosque.svg`}
+                src='/assets/default_Mosque.svg'
                 alt="Mosque Photo"
               />
             </>

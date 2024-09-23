@@ -1,7 +1,6 @@
 import axios from "axios";
 async function createNamazTime(place_id, namazTimeDetails) {
-  const base_url = import.meta.env.VITE_SERVER_BASE_URL;
-  const url = `${base_url}/api/v1/namazTime/${place_id}`;
+  const url = `/api/v1/namazTime/${place_id}`;
   const dataToCreate = { NamazTimeDetails: namazTimeDetails };
   let createdNamazTimeData = null;
   let statusCode = null;
